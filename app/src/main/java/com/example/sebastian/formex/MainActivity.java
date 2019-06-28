@@ -1,18 +1,19 @@
 package com.example.sebastian.formex;
 
 import android.app.Activity;
-import android.content.res.Resources;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,12 +26,12 @@ public class MainActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initialize(crearFormulario());
-        declareViews();
+        startApplication();
     }
 
     private void declareViews() {
         TextView enviar = findViewById(R.id.am_et_enviar);
+        enviar.setVisibility(View.VISIBLE);
         enviar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -49,7 +50,7 @@ public class MainActivity extends Activity {
         getWindowManager().getDefaultDisplay().getSize(screen);
         LinearLayout.LayoutParams layoutTextview = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutTextview.setMargins(0, convertPxToDp(15), 0, convertPxToDp(15));
-        for(Pregunta pregunta : formulario.getOpciones()){
+        for(Pregunta pregunta : formulario.getPreguntas()){
             TextView textView = new TextView(this);
             textView.setLayoutParams(layoutTextview);
             textView.setText(pregunta.getPregunta());
@@ -89,13 +90,16 @@ public class MainActivity extends Activity {
         }
     }
 
-    private Formulario crearFormulario(){
-        List<Pregunta> preguntas = new ArrayList<>();
-        preguntas.add(crearPregunta("Que coca-cola te gusta más?", "Comun", "Light", "Zero", "Life"));
-        preguntas.add(crearPregunta("Que compañia te gusta más?", "Audi", "Mercedes Benz", "Bmw", "Lamborghini", "Ferrari"));
-        preguntas.add(crearPregunta("Moto o auto?", "Moto", "Auto"));
-        preguntasTotales = preguntas.size();
-        return new Formulario(preguntas);
+    private void startApplication(){
+        DatabaseConnector connector = DatabaseConnector.getInstance();
+        connector.GrabFormulario(new DatabaseListener<Formulario>() {
+            @Override
+            public void finish(Formulario item) {
+                preguntasTotales = item.getPreguntas().size();
+                initialize(item);
+                declareViews();
+            }
+        });
     }
 
     private Pregunta crearPregunta(String pregunta, String... opciones){

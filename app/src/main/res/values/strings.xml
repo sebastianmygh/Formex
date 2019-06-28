@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Formex</string>
+    <string name="enviar_formulario">Enviar Formulario</string>
 </resources>

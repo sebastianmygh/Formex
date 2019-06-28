@@ -3,12 +3,12 @@ package com.example.sebastian.formex;
 import java.util.List;
 
 public class Formulario {
-    private List<Pregunta> opciones;
+    private List<Pregunta> preguntas;
 
-    public Formulario(List<Pregunta> opciones){
-        this.opciones = opciones;
+    public Formulario(List<Pregunta> preguntas){
+        this.preguntas = preguntas;
     }
-    public List<Pregunta> getOpciones() {
-        return opciones;
+    public List<Pregunta> getPreguntas() {
+        return preguntas;
     }
 }
