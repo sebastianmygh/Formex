@@ -7,13 +7,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,27 +19,46 @@ import java.util.List;
 public class MainActivity extends Activity {
     private LinearLayout layout;
     private Integer preguntasTotales;
+    private ProgressBar loadingBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        loadingBar = findViewById(R.id.am_pb_loading);
+        setLoading(true);
         startApplication();
     }
 
     private void declareViews() {
-        TextView enviar = findViewById(R.id.am_et_enviar);
-        enviar.setVisibility(View.VISIBLE);
-        enviar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                getResults();
-            }
-        });
+        if(preguntasTotales == 0){
+            TextView error = findViewById(R.id.am_tv_empty);
+            error.setVisibility(View.VISIBLE);
+        }
+        else{
+            TextView enviar = findViewById(R.id.am_et_enviar);
+            enviar.setVisibility(View.VISIBLE);
+            enviar.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    getResults();
+                }
+            });
+        }
     }
 
     private int convertPxToDp(int px){
         return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, getResources().getDisplayMetrics());
+    }
+
+    private void setLoading(Boolean status){
+        if(status){
+            loadingBar.setVisibility(View.VISIBLE);
+            loadingBar.setIndeterminate(true);
+        } else{
+            loadingBar.setVisibility(View.GONE);
+            loadingBar.setIndeterminate(false);
+        }
     }
 
     private void initialize(Formulario formulario) {
@@ -92,23 +109,15 @@ public class MainActivity extends Activity {
 
     private void startApplication(){
         DatabaseConnector connector = DatabaseConnector.getInstance();
-        connector.GrabFormulario(new DatabaseListener<Formulario>() {
+
+        connector.grabFormulario(new DatabaseListener<Formulario>() {
             @Override
             public void finish(Formulario item) {
                 preguntasTotales = item.getPreguntas().size();
+                setLoading(false);
                 initialize(item);
                 declareViews();
             }
         });
-    }
-
-    private Pregunta crearPregunta(String pregunta, String... opciones){
-        List<Opcion> options = new ArrayList<>();
-        for(String opt : opciones){
-            options.add(new Opcion(opt));
-        }
-        Pregunta preguntaFinal = new Pregunta(pregunta);
-        preguntaFinal.setOpciones(options);
-        return preguntaFinal;
     }
 }
