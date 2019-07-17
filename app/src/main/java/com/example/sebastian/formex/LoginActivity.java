@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
-
     private FirebaseAuth mAuth;
     EditText etEmail;
     EditText etPassword;
@@ -25,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         mAuth = FirebaseAuth.getInstance();
-
         isLoggedin();
     }
 
@@ -37,8 +35,6 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.al_et_password);
         TextView tvRegister = findViewById(R.id.al_et_register);
         TextView tvLogin = findViewById(R.id.al_et_login);
-
-
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +51,6 @@ public class LoginActivity extends AppCompatActivity {
                 login(user);
             }
         });
-
     }
 
     private void login(User user){
@@ -70,12 +65,9 @@ public class LoginActivity extends AppCompatActivity {
                                 Toast.makeText(LoginActivity.this, "Login failed, check your info.",
                                         Toast.LENGTH_SHORT).show();
                             }
-
-                            // ...
                         }
                     });
         }
-
     }
 
     private void isLoggedin(){
@@ -110,6 +102,5 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     });
         }
-
     }
 }

@@ -8,9 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
-
     private RecyclerView recyclerView;
     private LinearLayoutManager manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

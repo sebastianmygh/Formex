@@ -117,10 +117,8 @@ public class MainActivity extends Activity {
             Respuesta respuesta = new Respuesta(formulario.getPreguntas().get(i).getPregunta(), listado.get(i));
             respuestas.add(respuesta);
         }
-
         connector = DatabaseConnector.getInstance();
         connector.saveRespuestas(respuestas);
-
     }
 
     private void startApplication(){

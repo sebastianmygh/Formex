@@ -6,9 +6,7 @@ public class Pregunta {
     private String pregunta;
     private List<Opcion> opciones;
 
-    public Pregunta() {
-
-    }
+    public Pregunta() { }
 
     public Pregunta(String pregunta){
         this.pregunta = pregunta;

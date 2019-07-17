@@ -9,9 +9,7 @@ public class Respuesta {
         this.opcion = opcion;
     }
 
-    public Respuesta(){
-
-    }
+    public Respuesta(){ }
 
     public String getPregunta() {
         return pregunta;

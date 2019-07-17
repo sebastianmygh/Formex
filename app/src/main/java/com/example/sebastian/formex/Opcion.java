@@ -3,9 +3,7 @@ package com.example.sebastian.formex;
 public class Opcion {
     private String opcion;
 
-    public Opcion(){
-
-    }
+    public Opcion(){ }
 
     public Opcion(String opcion){
         this.opcion = opcion;

@@ -22,11 +22,13 @@ public class DatabaseConnector {
     private DatabaseConnector(){
 
     }
+
     public static DatabaseConnector getInstance(){
         if(instance == null)
             instance = new DatabaseConnector();
         return instance;
     }
+
     public void grabRespuestas(final DatabaseListener<List<Respuesta>> listener){
         final List<Respuesta> respuestas = new ArrayList<>();
         database = FirebaseDatabase.getInstance();
@@ -79,7 +81,6 @@ public class DatabaseConnector {
             }
         });
     }
-
 
     public void saveRespuestas(List<Respuesta> respuestas){
         DatabaseReference reference = database.getReference().child(RESPUESTAS);
