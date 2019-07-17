@@ -100,10 +100,10 @@ public class MainActivity extends Activity {
                 }
             }
         }
-        if(amountChecked == preguntasTotales){
+        if(amountChecked.equals(preguntasTotales)){
             Toast.makeText(this, "Opciones seleccionadas: " + opcionesSeleccionadas.toString(), Toast.LENGTH_SHORT).show();
         } else{
-            Toast.makeText(this, "Flaco, te falta responder", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Faltan responder un par de preguntas", Toast.LENGTH_SHORT).show();
         }
     }
 
