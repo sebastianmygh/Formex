@@ -1,6 +1,7 @@
 package com.example.sebastian.formex;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Point;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -20,7 +21,8 @@ public class MainActivity extends Activity {
     private LinearLayout layout;
     private Integer preguntasTotales;
     private ProgressBar loadingBar;
-
+    private Formulario formulario;
+    private DatabaseConnector connector;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class MainActivity extends Activity {
         }
     }
 
-    private void initialize(Formulario formulario) {
+    private void initialize() {
         layout = findViewById(R.id.am_ll_form);
         Point screen = new Point();
         getWindowManager().getDefaultDisplay().getSize(screen);
@@ -101,21 +103,36 @@ public class MainActivity extends Activity {
             }
         }
         if(amountChecked.equals(preguntasTotales)){
-            Toast.makeText(this, "Opciones seleccionadas: " + opcionesSeleccionadas.toString(), Toast.LENGTH_SHORT).show();
+            saveResults(opcionesSeleccionadas);
+            Intent intent = new Intent(this, ResultActivity.class);
+            startActivity(intent);
         } else{
             Toast.makeText(this, "Faltan responder un par de preguntas", Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void saveResults(List<String> listado){
+        List<Respuesta> respuestas = new ArrayList<>();
+        for (int i = 0; i < listado.size(); i++){
+            Respuesta respuesta = new Respuesta(formulario.getPreguntas().get(i).getPregunta(), listado.get(i));
+            respuestas.add(respuesta);
+        }
+
+        connector = DatabaseConnector.getInstance();
+        connector.saveRespuestas(respuestas);
+
+    }
+
     private void startApplication(){
-        DatabaseConnector connector = DatabaseConnector.getInstance();
+        connector = DatabaseConnector.getInstance();
 
         connector.grabFormulario(new DatabaseListener<Formulario>() {
             @Override
             public void finish(Formulario item) {
                 preguntasTotales = item.getPreguntas().size();
                 setLoading(false);
-                initialize(item);
+                formulario = item;
+                initialize();
                 declareViews();
             }
         });

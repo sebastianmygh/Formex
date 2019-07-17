@@ -1,7 +1,5 @@
 package com.example.sebastian.formex;
 
-import java.util.List;
-
 public class Opcion {
     private String opcion;
 
