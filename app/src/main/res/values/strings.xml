@@ -2,4 +2,8 @@
     <string name="app_name">Formex</string>
     <string name="enviar_formulario">Enviar Formulario</string>
     <string name="error_obtener_preguntas">Hubo un error al obtener las preguntas. Compruebe su conexion</string>
+    <string name="email">Email:</string>
+    <string name="password">Password:</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
 </resources>
