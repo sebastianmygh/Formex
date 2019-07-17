@@ -18,11 +18,14 @@ import com.google.firebase.auth.FirebaseUser;
 public class LoginActivity extends AppCompatActivity {
 
     private FirebaseAuth mAuth;
+    EditText etEmail;
+    EditText etPassword;
 
     @Override
     public void onStart() {
         super.onStart();
         mAuth = FirebaseAuth.getInstance();
+
         isLoggedin();
     }
 
@@ -30,48 +33,49 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-
+        etEmail = findViewById(R.id.al_et_email);
+        etPassword = findViewById(R.id.al_et_password);
         TextView tvRegister = findViewById(R.id.al_et_register);
         TextView tvLogin = findViewById(R.id.al_et_login);
 
-        final EditText etEmail = findViewById(R.id.al_et_email);
-        final EditText etPassword = findViewById(R.id.al_et_password);
+
 
         tvRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                register(email, password);
+                User user = validLogin();
+                register(user);
             }
         });
 
         tvLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = etEmail.getText().toString();
-                String password = etPassword.getText().toString();
-                login(email, password);
+                User user = validLogin();
+                login(user);
             }
         });
 
     }
 
-    private void login(String email, String password){
-        mAuth.signInWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            isLoggedin();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Login failed, check your info.",
-                                    Toast.LENGTH_SHORT).show();
-                        }
+    private void login(User user){
+        if(user != null){
+            mAuth.signInWithEmailAndPassword(user.getEmail(), user.getPassword())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                isLoggedin();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Login failed, check your info.",
+                                        Toast.LENGTH_SHORT).show();
+                            }
 
-                        // ...
-                    }
-                });
+                            // ...
+                        }
+                    });
+        }
+
     }
 
     private void isLoggedin(){
@@ -79,22 +83,33 @@ public class LoginActivity extends AppCompatActivity {
         if(currentUser != null){
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
-        } else {
-
         }
     }
 
-    private void register(String email, String password){
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            isLoggedin();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "Failed to register", Toast.LENGTH_SHORT).show();
+    private User validLogin(){
+        String email = etEmail.getText().toString();
+        String password = etPassword.getText().toString();
+
+        User user = new User(email, password);
+        if(user.validLogin()) return user;
+        Toast.makeText(this, "Some information is missing", Toast.LENGTH_SHORT).show();
+        return null;
+    }
+
+    private void register(User user){
+        if(user != null){
+            mAuth.createUserWithEmailAndPassword(user.getEmail(), user.getPassword())
+                    .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            if (task.isSuccessful()) {
+                                isLoggedin();
+                            } else {
+                                Toast.makeText(LoginActivity.this, "Failed to register", Toast.LENGTH_SHORT).show();
+                            }
                         }
-                    }
-                });
+                    });
+        }
+
     }
 }

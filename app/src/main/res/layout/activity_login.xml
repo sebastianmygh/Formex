@@ -37,8 +37,8 @@
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:padding="16dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:id="@+id/al_et_login"
             android:text="@string/login"/>
         <TextView
@@ -47,8 +47,8 @@
             android:textSize="26sp"
             android:padding="16dp"
             android:id="@+id/al_et_register"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:text="@string/register"
             android:layout_marginStart="80dp"/>
     </LinearLayout>
