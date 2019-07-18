@@ -25,6 +25,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:inputType="textPassword"
         android:layout_marginTop="10dp"
         android:id="@+id/al_et_password"/>
     <LinearLayout
@@ -37,7 +38,7 @@
             android:layout_height="wrap_content"
             android:textSize="26sp"
             android:padding="16dp"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorSuccess"
             android:textColor="@color/colorWhite"
             android:id="@+id/al_et_login"
             android:text="@string/login"/>
