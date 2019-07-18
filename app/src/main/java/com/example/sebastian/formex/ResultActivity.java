@@ -44,12 +44,11 @@ public class ResultActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                FirebaseUser currentUser = auth.getCurrentUser();
-                if(currentUser != null){
-                    auth.signOut();
-                    isLoggedin();
-                }
+            FirebaseUser currentUser = auth.getCurrentUser();
+            if(currentUser != null){
+                auth.signOut();
+                isLoggedin();
+            }
             }
         });
         listen();
