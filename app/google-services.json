@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "823616501749",
+    "firebase_url": "https://formex-2eff5.firebaseio.com",
+    "project_id": "formex-2eff5",
+    "storage_bucket": "formex-2eff5.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:823616501749:android:c4807002ff1cdc9e",
+        "android_client_info": {
+          "package_name": "com.example.sebastian.formex"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "823616501749-l98lbo3sjpo4oome77j6irm8s7stkib5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.sebastian.formex",
+            "certificate_hash": "6c0efe2298b5b409ca614bd38f982d0155c4a9d7"
+          }
+        },
+        {
+          "client_id": "823616501749-cpo0bdj7unecehpb46kjtf92v6g6srpb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDPRqCTob70f1D26SzAqPpcwl36XajDrQA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "823616501749-cpo0bdj7unecehpb46kjtf92v6g6srpb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
