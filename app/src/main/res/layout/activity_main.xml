@@ -4,10 +4,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.sebastian.formex.MainActivity"
+    android:background="@color/colorDeFondo"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
@@ -23,8 +24,8 @@
             android:id="@+id/am_et_enviar"
             android:textSize="26sp"
             android:padding="16dp"
-            android:background="@color/colorAccent"
-            android:textColor="@color/colorPrimary"
+            android:background="@color/colorPrimary"
+            android:textColor="@color/colorWhite"
             android:layout_gravity="center"
             android:visibility="gone"
             android:text="@string/enviar_formulario"/>
